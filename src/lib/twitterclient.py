@@ -14,3 +14,9 @@ class TwitterClient:
         return requests.get(f"{self.__TWEETS_ENDPOINT}/{tweet_id}",
                             params={"tweet.fields": tweet_fields},
                             headers=self.__headers).json()["data"]
+
+    def get_user_details(self, user_id: str) -> dict:
+        user_fields = ",".join(["public_metrics"])
+        return requests.get(f"{self.__USERS_ENDPOINT}/{user_id}",
+                            params={"user.fields": user_fields},
+                            headers=self.__headers).json()["data"]
