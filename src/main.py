@@ -9,4 +9,5 @@ API_KEY = env["API_KEY"]
 API_KEY_SECRET = env["API_KEY_SECRET"]
 BEARER_TOKEN = env["BEARER_TOKEN"]
 
-st.write("# Is that Tweet legit?")
+if __name__ == '__main__':
+    st.write("# Is that Tweet legit?")
