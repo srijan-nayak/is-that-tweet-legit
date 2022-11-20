@@ -26,3 +26,5 @@ BEARER_TOKEN = env["BEARER_TOKEN"]
 
 if __name__ == '__main__':
     st.write("# Is that Tweet legit?")
+
+    twitter_client = TwitterClient(BEARER_TOKEN)
