@@ -1,9 +1,27 @@
-import streamlit as st
-
-from dotenv import load_dotenv
 from os import environ as env
 
+import streamlit as st
+from dotenv import load_dotenv
+
+from lib.twitterclient import TwitterClient
+
 load_dotenv()
+
+
+@st.cache
+def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict:
+    all_details = {}
+
+    tweet_id = tweet_url_or_id.split("/")[-1]
+    tweet_details_response = twitter_client.fetch_tweet_details(tweet_id, ["public_metrics", "author_id"])
+    all_details["tweet"] = tweet_details_response["data"]
+
+    user_id = all_details["tweet"]["author_id"]
+    user_details_response = twitter_client.fetch_user_details(user_id, ["public_metrics"])
+    all_details["user"] = user_details_response["data"]
+
+    return all_details
+
 
 API_KEY = env["API_KEY"]
 API_KEY_SECRET = env["API_KEY_SECRET"]
