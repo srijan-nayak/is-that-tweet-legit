@@ -5,8 +5,6 @@ from dotenv import load_dotenv
 
 from lib.twitterclient import TwitterClient
 
-load_dotenv()
-
 
 @st.cache
 def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict:
@@ -23,8 +21,7 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     return all_details
 
 
-API_KEY = env["API_KEY"]
-API_KEY_SECRET = env["API_KEY_SECRET"]
+load_dotenv()
 BEARER_TOKEN = env["BEARER_TOKEN"]
 
 if __name__ == '__main__':
