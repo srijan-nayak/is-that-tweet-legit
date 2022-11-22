@@ -12,6 +12,13 @@ class TwitterClient:
     def fetch_tweet_details(
         self, tweet_id: str, additional_fields: list[str] = None
     ) -> dict:
+        """
+        Fetches details for a given Tweet with optional additional fields.
+
+        :param tweet_id: ID of Tweet for which details need to be fetched.
+        :param additional_fields: Additional 'tweet.fields' to fetch as specified in Twitter API docs.
+        :return: Dictionary containing response for the API request.
+        """
         tweet_fields = ",".join(additional_fields) if additional_fields else []
         return requests.get(
             f"{self.__TWEETS_ENDPOINT}/{tweet_id}",
