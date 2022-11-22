@@ -8,6 +8,13 @@ from lib.twitterclient import TwitterClient
 
 @st.cache
 def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict:
+    """
+    Fetches relevant information for a given Tweet URL or ID and returns it as a dictionary.
+
+    :param tweet_url_or_id: The url or ID of the Tweet for which the details should be fetched.
+    :param twitter_client: An instance of TwitterClient for making the API requests.
+    :return: A dictionary containing all the data.
+    """
     all_details = {}
 
     tweet_id = tweet_url_or_id.split("/")[-1]
