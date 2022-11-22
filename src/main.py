@@ -32,9 +32,6 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     return all_details
 
 
-load_dotenv()
-BEARER_TOKEN = env["BEARER_TOKEN"]
-
 if __name__ == "__main__":
     st.set_page_config(page_title="Is that Tweet legit?")
 
@@ -42,4 +39,5 @@ if __name__ == "__main__":
     # Is that Tweet legit?
     """
 
-    twitter_client = TwitterClient(BEARER_TOKEN)
+    load_dotenv()
+    twitter_client = TwitterClient(env["BEARER_TOKEN"])
