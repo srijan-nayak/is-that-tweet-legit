@@ -36,6 +36,10 @@ load_dotenv()
 BEARER_TOKEN = env["BEARER_TOKEN"]
 
 if __name__ == "__main__":
-    st.write("# Is that Tweet legit?")
+    st.set_page_config(page_title="Is that Tweet legit?")
+
+    """
+    # Is that Tweet legit?
+    """
 
     twitter_client = TwitterClient(BEARER_TOKEN)
