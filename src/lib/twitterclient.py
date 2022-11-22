@@ -2,6 +2,12 @@ import requests
 
 
 class TwitterClient:
+    """
+    A class that wraps Twitter API requests.
+
+    Requests are made with the bearer token provided through the constructor.
+    """
+
     __API_ROOT = "https://api.twitter.com/2"
     __TWEETS_ENDPOINT = f"{__API_ROOT}/tweets"
     __USERS_ENDPOINT = f"{__API_ROOT}/users"
