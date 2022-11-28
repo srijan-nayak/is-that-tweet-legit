@@ -50,6 +50,12 @@ if __name__ == "__main__":
     load_dotenv()
     twitter_client = TwitterClient(env["BEARER_TOKEN"])
 
+    data = get_all_details(
+        "https://twitter.com/shanselman/status/1595964315785662464", twitter_client
+    )
+
+    st.write(data)
+
     # RAKSHA
 
     # PRADEEP
