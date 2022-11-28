@@ -16,7 +16,7 @@ class TwitterClient:
         self.__headers = {"Authorization": f"Bearer {bearer_token}"}
 
     def fetch_tweet_details(
-        self, tweet_id: str, additional_fields: list[str] = None
+            self, tweet_id: str, additional_fields: list[str] = None
     ) -> dict:
         """
         Fetches details for a given Tweet with optional additional fields.
@@ -33,7 +33,7 @@ class TwitterClient:
         ).json()
 
     def fetch_user_details(
-        self, user_id: str, additional_fields: list[str] = None
+            self, user_id: str, additional_fields: list[str] = None
     ) -> dict:
         """
         Fetches details for a given Twitter user with optional additional fields.
@@ -48,3 +48,11 @@ class TwitterClient:
             params={"user.fields": user_fields},
             headers=self.__headers,
         ).json()
+
+    # RAKSHA
+
+    # PRADEEP
+
+    # SRINIVAS
+
+    # SRIVIKA

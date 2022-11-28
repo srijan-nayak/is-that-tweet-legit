@@ -32,6 +32,14 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     return all_details
 
 
+# RAKSHA
+
+# PRADEEP
+
+# SRINIVAS
+
+# SRIVIKA
+
 if __name__ == "__main__":
     st.set_page_config(page_title="Is that Tweet legit?")
 
@@ -41,3 +49,11 @@ if __name__ == "__main__":
 
     load_dotenv()
     twitter_client = TwitterClient(env["BEARER_TOKEN"])
+
+    # RAKSHA
+
+    # PRADEEP
+
+    # SRINIVAS
+
+    # SRIVIKA
