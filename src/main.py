@@ -50,12 +50,10 @@ if __name__ == "__main__":
     load_dotenv()
     twitter_client = TwitterClient(env["BEARER_TOKEN"])
 
-
     # RAKSHA
-    "Raksha's change"
+
     # PRADEEP
 
-    "hello everyone"
     # SRINIVAS
 
     # SRIVIKA
