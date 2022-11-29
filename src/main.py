@@ -34,6 +34,7 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
 
 # RAKSHA
 
+
 # PRADEEP
 
 # SRINIVAS
@@ -58,8 +59,33 @@ if __name__ == "__main__":
 
     # RAKSHA
 
-    # PRADEEP
+    res=data.items()
+    re1=list(res)
+    re2=re1[1][1]
+    re3=re2.items()
+    re4=list(re3)
+    re5=re4[3][1]
+    re6=re5.items()
+    re7=list(re6)
+    re8=re7[0][1]
+    re9=re7[1][1]
+    st.write(res)
+    st.write(re1)
+    st.write(re2)
+    st.write(re3)
+    st.write(re4)
+    st.write(re5)
+    st.write(re6)
+    st.write(re7)
+    st.write(re8)
+    st.write(re9)
 
-    # SRINIVAS
 
-    # SRIVIKA
+
+
+
+# PRADEEP
+
+# SRINIVAS
+
+# SRIVIKA
