@@ -33,6 +33,9 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
 
 
 # RAKSHA
+def get_followers_count(twitter_data: dict) -> int:
+    return twitter_data["user"]["public_metrics"]["followers_count"]
+
 
 # PRADEEP
 
