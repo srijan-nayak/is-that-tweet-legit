@@ -37,6 +37,10 @@ def get_followers_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["followers_count"]
 
 
+def get_followering_count(twitter_data: dict) -> int:
+    return twitter_data["user"]["public_metrics"]["following_count"]
+
+
 # PRADEEP
 
 # SRINIVAS
