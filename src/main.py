@@ -70,6 +70,9 @@ if __name__ == "__main__":
     An account that follows a lot of people but has few followers is generally considered a low-quality account or may 
     even be a fake account. 
     """
+    """
+    
+    """
     st.bar_chart(
         pd.DataFrame(
             [get_followers_count(data), get_following_count(data)],
