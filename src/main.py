@@ -67,8 +67,8 @@ if __name__ == "__main__":
     # RAKSHA
     """
     ## Followers Count vs Following Count
-    An account that follows a lot of people but has few followers is generally considered a low-quality account or may even be a fake account. An account with an even ratio of followers to following numbers is generally considered normal.
-    
+    An account that follows a lot of people but has few followers is generally considered a low-quality account or may 
+    even be a fake account. 
     """
     st.bar_chart(
         pd.DataFrame(
