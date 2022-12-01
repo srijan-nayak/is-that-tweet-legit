@@ -77,7 +77,7 @@ if __name__ == "__main__":
         pd.DataFrame(
             [get_followers_count(data), get_following_count(data)],
             columns=["Count"],
-            index=["Followers Count", "Following Count"],
+            index=["Followers", "Following"],
         )
     )
 
