@@ -4,6 +4,7 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from lib.twitterclient import TwitterClient
+import pandas as pd
 
 
 @st.cache
@@ -33,6 +34,13 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
 
 
 # RAKSHA
+def get_followers_count(twitter_data: dict) -> int:
+    return twitter_data["user"]["public_metrics"]["followers_count"]
+
+
+def get_following_count(twitter_data: dict) -> int:
+    return twitter_data["user"]["public_metrics"]["following_count"]
+
 
 # PRADEEP
 
@@ -57,6 +65,21 @@ if __name__ == "__main__":
     st.write(data)
 
     # RAKSHA
+    """
+    ## Followers Count vs Following Count
+    An account that follows a lot of people but has few followers is generally considered a low-quality account or may 
+    even be a fake account. 
+    """
+    """
+    
+    """
+    st.bar_chart(
+        pd.DataFrame(
+            [get_followers_count(data), get_following_count(data)],
+            columns=["Count"],
+            index=["Followers", "Following"],
+        )
+    )
 
     # PRADEEP
 
