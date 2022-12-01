@@ -38,7 +38,7 @@ def get_followers_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["followers_count"]
 
 
-def get_followering_count(twitter_data: dict) -> int:
+def get_following_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["following_count"]
 
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     """
     st.bar_chart(
         pd.DataFrame(
-            [get_followers_count(data), get_followering_count(data)],
+            [get_followers_count(data), get_following_count(data)],
             columns=["Count"],
             index=["Followers Count", "Following Count"],
         )
