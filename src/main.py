@@ -38,7 +38,7 @@ def get_followers_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["followers_count"]
 
 
-def get_followering_count(twitter_data: dict) -> int:
+def get_following_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["following_count"]
 
 
@@ -67,14 +67,17 @@ if __name__ == "__main__":
     # RAKSHA
     """
     ## Followers Count vs Following Count
-    An account that follows a lot of people but has few followers is generally considered a low-quality account or may even be a fake account. An account with an even ratio of followers to following numbers is generally considered normal.
+    An account that follows a lot of people but has few followers is generally considered a low-quality account or may
+    even be a fake account. 
+    """
+    """
     
     """
     st.bar_chart(
         pd.DataFrame(
-            [get_followers_count(data), get_followering_count(data)],
+            [get_followers_count(data), get_following_count(data)],
             columns=["Count"],
-            index=["Followers Count", "Following Count"],
+            index=["Followers", "Following"],
         )
     )
 
