@@ -3,9 +3,9 @@ from os import environ as env
 import streamlit as st
 from dotenv import load_dotenv
 
-from lib.twitterclient import TwitterClient
-from lib.twitterdata import TwitterData
-from src.lib.twitterdataplotter import TwitterDataPlotter
+from lib.twitter_client import TwitterClient
+from lib.twitter_data import TwitterData
+from src.lib.twitter_data_plotter import TwitterDataPlotter
 
 
 @st.cache
