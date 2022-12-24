@@ -55,12 +55,11 @@ if __name__ == "__main__":
     st.write(data.all())
 
     """
-    ## Followers Count vs Following Count
-    An account that follows a lot of people but has few followers is generally considered a low-quality account or may 
-    even be a fake account. 
-    """
-    """
+    ## Followers vs Following Count
     
+    Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
+    low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
+    in an attempt to get as much attention as possible.
     """
 
     st.altair_chart(data_plotter.followers_following_bar(), use_container_width=True)
