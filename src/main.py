@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from lib.twitterclient import TwitterClient
 from lib.twitterdata import TwitterData
-import pandas as pd
+from src.lib.twitterdataplotter import TwitterDataPlotter
 
 
 @st.cache
@@ -50,6 +50,8 @@ if __name__ == "__main__":
         )
     )
 
+    data_plotter = TwitterDataPlotter(data)
+
     st.write(data.all())
 
     """
@@ -60,10 +62,5 @@ if __name__ == "__main__":
     """
     
     """
-    st.bar_chart(
-        pd.DataFrame(
-            [data.followers_count(), data.following_count()],
-            columns=["Count"],
-            index=["Followers", "Following"],
-        )
-    )
+
+    st.altair_chart(data_plotter.followers_following_bar(), use_container_width=True)
