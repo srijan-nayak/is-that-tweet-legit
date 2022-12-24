@@ -48,11 +48,3 @@ class TwitterClient:
             params={"user.fields": user_fields},
             headers=self.__headers,
         ).json()
-
-    # RAKSHA
-
-    # PRADEEP
-
-    # SRINIVAS
-
-    # SRIVIKA

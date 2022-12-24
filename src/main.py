@@ -33,7 +33,6 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     return all_details
 
 
-# RAKSHA
 def get_followers_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["followers_count"]
 
@@ -41,12 +40,6 @@ def get_followers_count(twitter_data: dict) -> int:
 def get_following_count(twitter_data: dict) -> int:
     return twitter_data["user"]["public_metrics"]["following_count"]
 
-
-# PRADEEP
-
-# SRINIVAS
-
-# SRIVIKA
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Is that Tweet legit?")
@@ -64,7 +57,6 @@ if __name__ == "__main__":
 
     st.write(data)
 
-    # RAKSHA
     """
     ## Followers Count vs Following Count
     An account that follows a lot of people but has few followers is generally considered a low-quality account or may 
@@ -80,9 +72,3 @@ if __name__ == "__main__":
             index=["Followers", "Following"],
         )
     )
-
-    # PRADEEP
-
-    # SRINIVAS
-
-    # SRIVIKA
