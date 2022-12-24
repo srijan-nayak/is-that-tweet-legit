@@ -25,3 +25,10 @@ class TwitterData:
             return self.__data["user"]["public_metrics"]["following_count"]
         except KeyError:
             return -1
+
+    def tweet_count(self) -> int:
+        """Returns the tweet count if available. Returns -1 otherwise."""
+        try:
+            return self.__data["user"]["public_metrics"]["tweet_count"]
+        except KeyError:
+            return -1

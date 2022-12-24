@@ -63,3 +63,16 @@ if __name__ == "__main__":
     """
 
     st.altair_chart(data_plotter.followers_following_bar(), use_container_width=True)
+
+    """
+    ## Number of updates
+    
+    Accounts with large numbers of followers and following will usually have a significant number of comparable updates.
+    If such an account has very less tweets and the account is not that recognizable, then the account is probably a
+    spam account.
+    """
+
+    updates_columns = st.columns(3)
+    updates_columns[0].metric("Tweet Count", data.tweet_count())
+    updates_columns[1].metric("Followers Count", data.followers_count())
+    updates_columns[2].metric("Following Count", data.following_count())
