@@ -3,8 +3,9 @@ from os import environ as env
 import streamlit as st
 from dotenv import load_dotenv
 
-from lib.twitterclient import TwitterClient
-import pandas as pd
+from src.lib.twitter_client import TwitterClient
+from src.lib.twitter_data import TwitterData
+from src.lib.twitter_data_plotter import TwitterDataPlotter
 
 
 @st.cache
@@ -26,27 +27,12 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
 
     user_id = all_details["tweet"]["author_id"]
     user_details_response = twitter_client.fetch_user_details(
-        user_id, ["public_metrics"]
+        user_id, ["public_metrics", "created_at"]
     )
     all_details["user"] = user_details_response["data"]
 
     return all_details
 
-
-# RAKSHA
-def get_followers_count(twitter_data: dict) -> int:
-    return twitter_data["user"]["public_metrics"]["followers_count"]
-
-
-def get_following_count(twitter_data: dict) -> int:
-    return twitter_data["user"]["public_metrics"]["following_count"]
-
-
-# PRADEEP
-
-# SRINIVAS
-
-# SRIVIKA
 
 if __name__ == "__main__":
     st.set_page_config(page_title="Is that Tweet legit?")
@@ -58,31 +44,69 @@ if __name__ == "__main__":
     load_dotenv()
     twitter_client = TwitterClient(env["BEARER_TOKEN"])
 
-    data = get_all_details(
-        "https://twitter.com/shanselman/status/1595964315785662464", twitter_client
-    )
+    can_show_details = False
+    with st.form("twitter_link_form"):
+        tweet_url_or_id = st.text_input("Tweet link or URL")
+        submitted = st.form_submit_button("Fetch data")
 
-    st.write(data)
+        if submitted:
+            try:
+                data = TwitterData(get_all_details(tweet_url_or_id, twitter_client))
+                data_plotter = TwitterDataPlotter(data)
+                can_show_details = True
+            except KeyError:
+                st.error("Failed to fetch data with the given Tweet link or URL!")
 
-    # RAKSHA
-    """
-    ## Followers Count vs Following Count
-    An account that follows a lot of people but has few followers is generally considered a low-quality account or may 
-    even be a fake account. 
-    """
-    """
-    
-    """
-    st.bar_chart(
-        pd.DataFrame(
-            [get_followers_count(data), get_following_count(data)],
-            columns=["Count"],
-            index=["Followers", "Following"],
-        )
-    )
+    if can_show_details:
+        """
+        ## Followers vs Following Count
+        """
 
-    # PRADEEP
+        try:
+            st.altair_chart(
+                data_plotter.followers_following_bar(), use_container_width=True
+            )
 
-    # SRINIVAS
+            followers_following_columns = st.columns(2)
+            followers_following_columns[0].metric("Followers", data.followers_count())
+            followers_following_columns[1].metric("Following", data.following_count())
+        except KeyError:
+            st.error("Failed to fetch followers and following information!")
 
-    # SRIVIKA
+        """
+        Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
+        low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
+        in an attempt to get as much attention as possible.
+        """
+
+        updates_column, age_column = st.columns(2)
+
+        with updates_column:
+            """
+            ## Number of updates
+            """
+
+            try:
+                st.metric("Tweet Count", data.tweet_count())
+            except KeyError:
+                st.error("Failed to fetch Tweet count!")
+
+            """
+            If an account with large followers and following has very less tweets and the account is not that
+            recognizable, then the account is probably a spam account.
+            """
+
+        with age_column:
+            """
+            ## Age of account
+            """
+
+            try:
+                st.metric("Account age in days", data.account_age())
+            except KeyError:
+                st.error("Failed to fetch 'created at' information!")
+
+            """
+            An account that is not so recognizable but has large number of followers and following in a short period of
+            time is another indicator for a spam account.
+            """
