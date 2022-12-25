@@ -3,9 +3,9 @@ from os import environ as env
 import streamlit as st
 from dotenv import load_dotenv
 
-from lib.twitter_client import TwitterClient
-from lib.twitter_data import TwitterData
-from lib.twitter_data_plotter import TwitterDataPlotter
+from src.lib.twitter_client import TwitterClient
+from src.lib.twitter_data import TwitterData
+from src.lib.twitter_data_plotter import TwitterDataPlotter
 
 
 @st.cache
@@ -44,26 +44,34 @@ if __name__ == "__main__":
     load_dotenv()
     twitter_client = TwitterClient(env["BEARER_TOKEN"])
 
+    can_show_details = False
     with st.form("twitter_link_form"):
         tweet_url_or_id = st.text_input("Tweet link or URL")
         submitted = st.form_submit_button("Fetch data")
 
         if submitted:
-            data = TwitterData(get_all_details(tweet_url_or_id, twitter_client))
-            data_plotter = TwitterDataPlotter(data)
+            try:
+                data = TwitterData(get_all_details(tweet_url_or_id, twitter_client))
+                data_plotter = TwitterDataPlotter(data)
+                can_show_details = True
+            except KeyError:
+                st.error("Failed to fetch data with the given Tweet link or URL!")
 
-    if submitted:
+    if can_show_details:
         """
         ## Followers vs Following Count
         """
 
-        st.altair_chart(
-            data_plotter.followers_following_bar(), use_container_width=True
-        )
+        try:
+            st.altair_chart(
+                data_plotter.followers_following_bar(), use_container_width=True
+            )
 
-        followers_following_columns = st.columns(2)
-        followers_following_columns[0].metric("Followers", data.followers_count())
-        followers_following_columns[1].metric("Following", data.following_count())
+            followers_following_columns = st.columns(2)
+            followers_following_columns[0].metric("Followers", data.followers_count())
+            followers_following_columns[1].metric("Following", data.following_count())
+        except KeyError:
+            st.error("Failed to fetch followers and following information!")
 
         """
         Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
@@ -78,11 +86,14 @@ if __name__ == "__main__":
             ## Number of updates
             """
 
-            st.metric("Tweet Count", data.tweet_count())
+            try:
+                st.metric("Tweet Count", data.tweet_count())
+            except KeyError:
+                st.error("Failed to fetch Tweet count!")
 
             """
-            If an account with large followers and following has very less tweets and the account is not that recognizable,
-            then the account is probably a spam account.
+            If an account with large followers and following has very less tweets and the account is not that
+            recognizable, then the account is probably a spam account.
             """
 
         with age_column:
@@ -90,9 +101,12 @@ if __name__ == "__main__":
             ## Age of account
             """
 
-            st.metric("Account age in days", data.account_age())
+            try:
+                st.metric("Account age in days", data.account_age())
+            except KeyError:
+                st.error("Failed to fetch 'created at' information!")
 
             """
-            An account that is not so recognizable but has large number of followers and following in a short period of time
-            is another indicator for a spam account.
+            An account that is not so recognizable but has large number of followers and following in a short period of
+            time is another indicator for a spam account.
             """
