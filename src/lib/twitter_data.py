@@ -18,34 +18,22 @@ class TwitterData:
         return self.__data.copy()
 
     def followers_count(self) -> int:
-        """Returns the followers count if available. Returns -1 otherwise."""
-        try:
-            return self.__data["user"]["public_metrics"]["followers_count"]
-        except KeyError:
-            return -1
+        """Returns the followers count if available."""
+        return self.__data["user"]["public_metrics"]["followers_count"]
 
     def following_count(self) -> int:
-        """Returns the following count if available. Returns -1 otherwise."""
-        try:
-            return self.__data["user"]["public_metrics"]["following_count"]
-        except KeyError:
-            return -1
+        """Returns the following count if available."""
+        return self.__data["user"]["public_metrics"]["following_count"]
 
     def tweet_count(self) -> int:
-        """Returns the tweet count if available. Returns -1 otherwise."""
-        try:
-            return self.__data["user"]["public_metrics"]["tweet_count"]
-        except KeyError:
-            return -1
+        """Returns the tweet count if available."""
+        return self.__data["user"]["public_metrics"]["tweet_count"]
 
     def account_age(self) -> int:
-        """Returns the age of account in days if created at time is available. Returns -1 otherwise."""
-        try:
-            created_at = parse(self.__data["user"]["created_at"])
-            time_delta = datetime.now(timezone.utc) - created_at
-            return time_delta.days
-        except KeyError:
-            return -1
+        """Returns the age of account in days if created at time is available."""
+        created_at = parse(self.__data["user"]["created_at"])
+        time_delta = datetime.now(timezone.utc) - created_at
+        return time_delta.days
 
     def recent_replies(self) -> list[str]:
         """Fetches recent replies from the account."""

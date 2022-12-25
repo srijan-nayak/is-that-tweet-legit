@@ -120,8 +120,11 @@ if __name__ == "__main__":
         """
 
         with st.expander("Expand to see recent replies from the user"):
-            for tweet in data.recent_replies():
-                st.text(tweet)
+            try:
+                for tweet in data.recent_replies():
+                    st.text(tweet)
+            except KeyError:
+                st.error("Failed to fetch recent replies!")
 
         """
         If an account is just broadcasting links or just offering simple replies without much context, then it is highly
