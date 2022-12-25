@@ -56,10 +56,7 @@ if __name__ == "__main__":
 
     """
     ## Followers vs Following Count
-    
-    Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
-    low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
-    in an attempt to get as much attention as possible.
+   
     """
 
     st.altair_chart(data_plotter.followers_following_bar(), use_container_width=True)
@@ -68,24 +65,34 @@ if __name__ == "__main__":
     followers_following_columns[0].metric("Followers", data.followers_count())
     followers_following_columns[1].metric("Following", data.following_count())
 
+    """
+    Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
+    low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
+    in an attempt to get as much attention as possible.
+    """
+
     updates_column, age_column = st.columns(2)
 
     with updates_column:
         """
         ## Number of updates
-
-        If an account with large followers and following has very less tweets and the account is not that recognizable,
-        then the account is probably a spam account.
         """
 
         st.metric("Tweet Count", data.tweet_count())
 
+        """
+        If an account with large followers and following has very less tweets and the account is not that recognizable,
+        then the account is probably a spam account.
+        """
+
     with age_column:
         """
         ## Age of account
-
-        An account that is not so recognizable but has large number of followers and following in a short period of time
-        is another indicator for a spam account.
         """
 
         st.metric("Account age in days", data.account_age())
+
+        """
+        An account that is not so recognizable but has large number of followers and following in a short period of time
+        is another indicator for a spam account.
+        """
