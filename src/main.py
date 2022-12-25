@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 from lib.twitter_client import TwitterClient
 from lib.twitter_data import TwitterData
-from src.lib.twitter_data_plotter import TwitterDataPlotter
+from lib.twitter_data_plotter import TwitterDataPlotter
 
 
 @st.cache
@@ -68,12 +68,24 @@ if __name__ == "__main__":
     followers_following_columns[0].metric("Followers", data.followers_count())
     followers_following_columns[1].metric("Following", data.following_count())
 
-    """
-    ## Number of updates
-    
-    Accounts with large numbers of followers and following will usually have a significant number of comparable updates.
-    If such an account has very less tweets and the account is not that recognizable, then the account is probably a
-    spam account.
-    """
+    updates_column, age_column = st.columns(2)
 
-    st.metric("Tweet Count", data.tweet_count())
+    with updates_column:
+        """
+        ## Number of updates
+
+        If an account with large followers and following has very less tweets and the account is not that recognizable,
+        then the account is probably a spam account.
+        """
+
+        st.metric("Tweet Count", data.tweet_count())
+
+    with age_column:
+        """
+        ## Age of account
+
+        An account that is not so recognizable but has large number of followers and following in a short period of time
+        is another indicator for a spam account.
+        """
+
+        st.metric("Account age in days", data.account_age())
