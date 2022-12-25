@@ -35,12 +35,23 @@ class TwitterData:
         time_delta = datetime.now(timezone.utc) - created_at
         return time_delta.days
 
-    def recent_tweets(self) -> list[str]:
+    def recent_tweets(self) -> list[dict]:
         """Fetches recent tweets from the account."""
         tweets = self.__data["tweets"]
-        return [data["text"] for data in tweets]
+        return [TwitterData.__transform_tweet_data(data) for data in tweets]
 
-    def recent_replies(self) -> list[str]:
+    def recent_replies(self) -> list[dict]:
         """Fetches recent replies from the account."""
         reply_tweets = self.__data["reply_tweets"]
-        return [data["text"] for data in reply_tweets]
+        return [TwitterData.__transform_tweet_data(data) for data in reply_tweets]
+
+    @staticmethod
+    def __transform_tweet_data(data: dict) -> dict:
+        return {
+            "created_at": parse(data["created_at"]),
+            "text": data["text"],
+            "retweets": data["public_metrics"]["retweet_count"],
+            "replies": data["public_metrics"]["reply_count"],
+            "likes": data["public_metrics"]["like_count"],
+            "quotes": data["public_metrics"]["quote_count"],
+        }

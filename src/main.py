@@ -124,14 +124,14 @@ if __name__ == "__main__":
         with st.expander("Expand to see recent tweets from the user"):
             try:
                 for tweet in data.recent_tweets():
-                    st.text(tweet)
+                    st.text(tweet["text"])
             except KeyError:
                 st.error("Failed to fetch recent tweets!")
 
         with st.expander("Expand to see recent replies from the user"):
             try:
                 for tweet in data.recent_replies():
-                    st.text(tweet)
+                    st.text(tweet["text"])
             except KeyError:
                 st.error("Failed to fetch recent replies!")
 

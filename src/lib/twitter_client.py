@@ -59,7 +59,10 @@ class TwitterClient:
         """
         return requests.get(
             self.__TWEETS_SEARCH_ENDPOINT,
-            params={"query": f"from:{user_name} -is:reply -is:retweet"},
+            params={
+                "query": f"from:{user_name} -is:reply -is:retweet",
+                "tweet.fields": "public_metrics,created_at",
+            },
             headers=self.__headers,
         ).json()
 
@@ -72,6 +75,9 @@ class TwitterClient:
         """
         return requests.get(
             self.__TWEETS_SEARCH_ENDPOINT,
-            params={"query": f"from:{user_name} is:reply"},
+            params={
+                "query": f"from:{user_name} is:reply",
+                "tweet.fields": "public_metrics,created_at",
+            },
             headers=self.__headers,
         ).json()
