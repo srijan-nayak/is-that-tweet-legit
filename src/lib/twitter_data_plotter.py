@@ -28,11 +28,20 @@ class TwitterDataPlotter:
 
     def recent_tweets_metrics(self) -> Chart:
         recent_tweets = self.__twitter_data.recent_tweets()
+        return TwitterDataPlotter.__tweets_metrics(recent_tweets, "Recent Tweets' metrics")
 
-        chart_data = TwitterDataPlotter.__convert_tweets(recent_tweets)
+    def recent_replies_metrics(self) -> Chart:
+        recent_replies = self.__twitter_data.recent_replies()
+        return TwitterDataPlotter.__tweets_metrics(recent_replies, "Recent replies' metrics")
+
+
+
+    @staticmethod
+    def __tweets_metrics(tweets: list[dict], title: str) -> Chart:
+        chart_data = TwitterDataPlotter.__convert_tweets(tweets)
 
         return (
-            alt.Chart(chart_data, title="Recent Tweets' metrics")
+            alt.Chart(chart_data, title=title)
             .transform_fold(["Likes", "Retweets", "Replies"])
             .mark_line(point=True)
             .encode(

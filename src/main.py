@@ -130,12 +130,14 @@ if __name__ == "__main__":
         except KeyError:
             st.error("Failed to fetch recent tweets!")
 
-        with st.expander("Expand to see recent replies from the user"):
-            try:
+        try:
+            st.altair_chart(data_plotter.recent_replies_metrics(), use_container_width=True)
+
+            with st.expander("Expand to see recent replies from the user"):
                 for tweet in data.recent_replies():
                     st.text(tweet["text"])
-            except KeyError:
-                st.error("Failed to fetch recent replies!")
+        except KeyError:
+            st.error("Failed to fetch recent replies!")
 
         """
         If an account is just broadcasting links or just offering simple replies without much context, then it is highly
