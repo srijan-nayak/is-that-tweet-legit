@@ -46,3 +46,8 @@ class TwitterData:
             return time_delta.days
         except KeyError:
             return -1
+
+    def recent_replies(self) -> list[str]:
+        """Fetches recent replies from the account."""
+        reply_tweets = self.__data["reply_tweets"]
+        return [data["text"] for data in reply_tweets]

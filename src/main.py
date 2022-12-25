@@ -62,8 +62,6 @@ if __name__ == "__main__":
                 st.error("Failed to fetch data!")
 
     if can_show_details:
-        st.json(data.all())
-
         """
         ## Followers vs Following Count
         """
@@ -116,3 +114,16 @@ if __name__ == "__main__":
             An account that is not so recognizable but has large number of followers and following in a short period of
             time is another indicator for a spam account.
             """
+
+        """
+        ## Recent replies
+        """
+
+        with st.expander("Expand to see recent replies from the user"):
+            for tweet in data.recent_replies():
+                st.text(tweet)
+
+        """
+        If an account is just broadcasting links or just offering simple replies without much context, then it is highly
+        likely that the account is a spam account.
+        """
