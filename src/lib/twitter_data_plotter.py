@@ -1,5 +1,6 @@
 import altair as alt
 import pandas as pd
+from altair.vegalite.v4.api import Chart
 
 from src.lib.twitter_data import TwitterData
 
@@ -8,7 +9,7 @@ class TwitterDataPlotter:
     def __init__(self, twitter_data: TwitterData):
         self.__twitter_data = twitter_data
 
-    def followers_following_bar(self):
+    def followers_following_bar(self) -> Chart:
         followers = self.__twitter_data.followers_count()
         following = self.__twitter_data.following_count()
 
