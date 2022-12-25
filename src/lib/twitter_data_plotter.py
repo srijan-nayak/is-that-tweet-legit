@@ -9,7 +9,7 @@ class TwitterDataPlotter:
     def __init__(self, twitter_data: TwitterData):
         self.__twitter_data = twitter_data
 
-    def followers_following_bar(self) -> Chart:
+    def followers_following_bar_plot(self) -> Chart:
         followers = self.__twitter_data.followers_count()
         following = self.__twitter_data.following_count()
 
@@ -26,18 +26,20 @@ class TwitterDataPlotter:
             )
         )
 
-    def recent_tweets_metrics(self) -> Chart:
+    def recent_tweets_metrics_plot(self) -> Chart:
         recent_tweets = self.__twitter_data.recent_tweets()
-        return TwitterDataPlotter.__tweets_metrics(recent_tweets, "Recent Tweets' metrics")
+        return TwitterDataPlotter.__tweets_metrics_plot(
+            recent_tweets, "Recent Tweets' metrics"
+        )
 
-    def recent_replies_metrics(self) -> Chart:
+    def recent_replies_metrics_plot(self) -> Chart:
         recent_replies = self.__twitter_data.recent_replies()
-        return TwitterDataPlotter.__tweets_metrics(recent_replies, "Recent replies' metrics")
-
-
+        return TwitterDataPlotter.__tweets_metrics_plot(
+            recent_replies, "Recent replies' metrics"
+        )
 
     @staticmethod
-    def __tweets_metrics(tweets: list[dict], title: str) -> Chart:
+    def __tweets_metrics_plot(tweets: list[dict], title: str) -> Chart:
         chart_data = TwitterDataPlotter.__convert_tweets(tweets)
 
         return (

@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
         try:
             st.altair_chart(
-                data_plotter.followers_following_bar(), use_container_width=True
+                data_plotter.followers_following_bar_plot(), use_container_width=True
             )
 
             followers_following_columns = st.columns(2)
@@ -122,16 +122,20 @@ if __name__ == "__main__":
         """
 
         try:
-            st.altair_chart(data_plotter.recent_tweets_metrics(), use_container_width=True)
+            st.altair_chart(
+                data_plotter.recent_tweets_metrics_plot(), use_container_width=True
+            )
 
             with st.expander("Expand to see recent tweets from the user"):
-                    for tweet in data.recent_tweets():
-                        st.text(tweet["text"])
+                for tweet in data.recent_tweets():
+                    st.text(tweet["text"])
         except KeyError:
             st.error("Failed to fetch recent tweets!")
 
         try:
-            st.altair_chart(data_plotter.recent_replies_metrics(), use_container_width=True)
+            st.altair_chart(
+                data_plotter.recent_replies_metrics_plot(), use_container_width=True
+            )
 
             with st.expander("Expand to see recent replies from the user"):
                 for tweet in data.recent_replies():
