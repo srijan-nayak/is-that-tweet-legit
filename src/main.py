@@ -44,7 +44,7 @@ if __name__ == "__main__":
     st.set_page_config(page_title="Is that Tweet legit?")
 
     """
-    # Is that Tweet legit?
+    # Is that tweet legit?
     """
 
     load_dotenv()
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
     if can_show_details:
         """
-        ## Followers vs Following Count
+        ## Followers vs following count
         """
 
         try:
@@ -93,9 +93,9 @@ if __name__ == "__main__":
             """
 
             try:
-                st.metric("Tweet Count", data.tweet_count())
+                st.metric("Tweet count", data.tweet_count())
             except KeyError:
-                st.error("Failed to fetch Tweet count!")
+                st.error("Failed to fetch tweet count!")
 
             """
             If an account with large followers and following has very less tweets and the account is not that
@@ -118,7 +118,7 @@ if __name__ == "__main__":
             """
 
         """
-        ## Recent Tweets and replies
+        ## Recent tweets and replies
         """
 
         try:

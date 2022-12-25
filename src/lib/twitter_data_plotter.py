@@ -29,7 +29,7 @@ class TwitterDataPlotter:
     def recent_tweets_metrics_plot(self) -> Chart:
         recent_tweets = self.__twitter_data.recent_tweets()
         return TwitterDataPlotter.__tweets_metrics_plot(
-            recent_tweets, "Recent Tweets' metrics"
+            recent_tweets, "Recent tweets' metrics"
         )
 
     def recent_replies_metrics_plot(self) -> Chart:
