@@ -10,6 +10,7 @@ class TwitterClient:
 
     __API_ROOT = "https://api.twitter.com/2"
     __TWEETS_ENDPOINT = f"{__API_ROOT}/tweets"
+    __TWEETS_SEARCH_ENDPOINT = f"{__TWEETS_ENDPOINT}/search/recent"
     __USERS_ENDPOINT = f"{__API_ROOT}/users"
 
     def __init__(self, bearer_token: str):
@@ -46,5 +47,18 @@ class TwitterClient:
         return requests.get(
             f"{self.__USERS_ENDPOINT}/{user_id}",
             params={"user.fields": user_fields},
+            headers=self.__headers,
+        ).json()
+
+    def fetch_reply_tweets(self, user_name: str) -> dict:
+        """
+        Fetches recent Tweets which are replies for a given user Twitter user.
+
+        :param user_name: Username of the user whose recent reply Tweets need to be fetched.
+        :return: Dictionary containing response for the API request.
+        """
+        return requests.get(
+            self.__TWEETS_SEARCH_ENDPOINT,
+            params={"query": f"from:{user_name} is:reply"},
             headers=self.__headers,
         ).json()

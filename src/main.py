@@ -31,6 +31,10 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     )
     all_details["user"] = user_details_response["data"]
 
+    user_name = all_details["user"]["username"]
+    reply_tweets_response = twitter_client.fetch_reply_tweets(user_name)
+    all_details["reply_tweets"] = reply_tweets_response["data"]
+
     return all_details
 
 
