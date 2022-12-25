@@ -35,6 +35,11 @@ class TwitterData:
         time_delta = datetime.now(timezone.utc) - created_at
         return time_delta.days
 
+    def recent_tweets(self) -> list[str]:
+        """Fetches recent tweets from the account."""
+        tweets = self.__data["tweets"]
+        return [data["text"] for data in tweets]
+
     def recent_replies(self) -> list[str]:
         """Fetches recent replies from the account."""
         reply_tweets = self.__data["reply_tweets"]

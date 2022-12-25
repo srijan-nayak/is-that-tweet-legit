@@ -50,9 +50,22 @@ class TwitterClient:
             headers=self.__headers,
         ).json()
 
+    def fetch_tweets(self, user_name: str) -> dict:
+        """
+        Fetches recent Tweets for a given Twitter user.
+
+        :param user_name: Username of the user whose recent Tweets need to be fetched.
+        :return: Dictionary containing response for the API request.
+        """
+        return requests.get(
+            self.__TWEETS_SEARCH_ENDPOINT,
+            params={"query": f"from:{user_name} -is:reply -is:retweet"},
+            headers=self.__headers,
+        ).json()
+
     def fetch_reply_tweets(self, user_name: str) -> dict:
         """
-        Fetches recent Tweets which are replies for a given user Twitter user.
+        Fetches recent Tweets which are replies for a given Twitter user.
 
         :param user_name: Username of the user whose recent reply Tweets need to be fetched.
         :return: Dictionary containing response for the API request.

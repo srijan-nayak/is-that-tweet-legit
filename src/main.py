@@ -32,6 +32,8 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     all_details["user"] = user_details_response.get("data", {})
 
     user_name = all_details["user"].get("username", "")
+    tweets_response = twitter_client.fetch_tweets(user_name)
+    all_details["tweets"] = tweets_response.get("data", {})
     reply_tweets_response = twitter_client.fetch_reply_tweets(user_name)
     all_details["reply_tweets"] = reply_tweets_response.get("data", {})
 
@@ -118,6 +120,13 @@ if __name__ == "__main__":
         """
         ## Recent replies
         """
+
+        with st.expander("Expand to see recent tweets from the user"):
+            try:
+                for tweet in data.recent_tweets():
+                    st.text(tweet)
+            except KeyError:
+                st.error("Failed to fetch recent tweets!")
 
         with st.expander("Expand to see recent replies from the user"):
             try:
