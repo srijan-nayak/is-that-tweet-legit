@@ -25,3 +25,32 @@ class TwitterDataPlotter:
                 alt.X("Count", type="quantitative", title=None),
             )
         )
+
+    def recent_tweets_metrics(self) -> Chart:
+        recent_tweets = self.__twitter_data.recent_tweets()
+
+        chart_data = TwitterDataPlotter.__convert_tweets(recent_tweets)
+
+        return (
+            alt.Chart(chart_data, title="Recent Tweets' metrics")
+            .transform_fold(["Likes", "Retweets", "Replies"])
+            .mark_line(point=True)
+            .encode(
+                alt.X("Date", type="temporal", title=" "),
+                alt.Y("value", type="quantitative", title=None),
+                alt.Color("key", type="nominal", title=None),
+                tooltip=["Tweet:N", "key:N", "value:Q"],
+            )
+        )
+
+    @staticmethod
+    def __convert_tweets(tweets) -> pd.DataFrame:
+        return pd.DataFrame(
+            {
+                "Date": [tweet["created_at"] for tweet in tweets],
+                "Likes": [tweet["likes"] for tweet in tweets],
+                "Retweets": [tweet["retweets"] for tweet in tweets],
+                "Replies": [tweet["replies"] for tweet in tweets],
+                "Tweet": [tweet["text"] for tweet in tweets],
+            }
+        )

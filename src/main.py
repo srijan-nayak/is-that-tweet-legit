@@ -118,15 +118,17 @@ if __name__ == "__main__":
             """
 
         """
-        ## Recent replies
+        ## Recent Tweets and replies
         """
 
-        with st.expander("Expand to see recent tweets from the user"):
-            try:
-                for tweet in data.recent_tweets():
-                    st.text(tweet["text"])
-            except KeyError:
-                st.error("Failed to fetch recent tweets!")
+        try:
+            st.altair_chart(data_plotter.recent_tweets_metrics(), use_container_width=True)
+
+            with st.expander("Expand to see recent tweets from the user"):
+                    for tweet in data.recent_tweets():
+                        st.text(tweet["text"])
+        except KeyError:
+            st.error("Failed to fetch recent tweets!")
 
         with st.expander("Expand to see recent replies from the user"):
             try:
