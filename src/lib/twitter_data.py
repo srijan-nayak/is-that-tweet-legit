@@ -1,3 +1,8 @@
+from datetime import datetime, timezone
+
+from dateutil.parser import parse
+
+
 class TwitterData:
     """
     Model containing fetched Twitter data.
@@ -30,5 +35,14 @@ class TwitterData:
         """Returns the tweet count if available. Returns -1 otherwise."""
         try:
             return self.__data["user"]["public_metrics"]["tweet_count"]
+        except KeyError:
+            return -1
+
+    def account_age(self) -> int:
+        """Returns the age of account in days if created at time is available. Returns -1 otherwise."""
+        try:
+            created_at = parse(self.__data["user"]["created_at"])
+            time_delta = datetime.now(timezone.utc) - created_at
+            return time_delta.days
         except KeyError:
             return -1

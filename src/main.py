@@ -27,7 +27,7 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
 
     user_id = all_details["tweet"]["author_id"]
     user_details_response = twitter_client.fetch_user_details(
-        user_id, ["public_metrics"]
+        user_id, ["public_metrics", "created_at"]
     )
     all_details["user"] = user_details_response["data"]
 
