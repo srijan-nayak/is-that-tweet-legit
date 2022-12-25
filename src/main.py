@@ -64,6 +64,10 @@ if __name__ == "__main__":
 
     st.altair_chart(data_plotter.followers_following_bar(), use_container_width=True)
 
+    followers_following_columns = st.columns(2)
+    followers_following_columns[0].metric("Followers", data.followers_count())
+    followers_following_columns[1].metric("Following", data.following_count())
+
     """
     ## Number of updates
     
@@ -72,7 +76,4 @@ if __name__ == "__main__":
     spam account.
     """
 
-    updates_columns = st.columns(3)
-    updates_columns[0].metric("Tweet Count", data.tweet_count())
-    updates_columns[1].metric("Followers Count", data.followers_count())
-    updates_columns[2].metric("Following Count", data.following_count())
+    st.metric("Tweet Count", data.tweet_count())
