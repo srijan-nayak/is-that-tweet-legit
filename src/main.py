@@ -44,55 +44,55 @@ if __name__ == "__main__":
     load_dotenv()
     twitter_client = TwitterClient(env["BEARER_TOKEN"])
 
-    data = TwitterData(
-        get_all_details(
-            "https://twitter.com/shanselman/status/1595964315785662464", twitter_client
+    with st.form("twitter_link_form"):
+        tweet_url_or_id = st.text_input("Tweet link or URL")
+        submitted = st.form_submit_button("Fetch data")
+
+        if submitted:
+            data = TwitterData(get_all_details(tweet_url_or_id, twitter_client))
+            data_plotter = TwitterDataPlotter(data)
+
+    if submitted:
+        """
+        ## Followers vs Following Count
+        """
+
+        st.altair_chart(
+            data_plotter.followers_following_bar(), use_container_width=True
         )
-    )
 
-    data_plotter = TwitterDataPlotter(data)
-
-    st.write(data.all())
-
-    """
-    ## Followers vs Following Count
-   
-    """
-
-    st.altair_chart(data_plotter.followers_following_bar(), use_container_width=True)
-
-    followers_following_columns = st.columns(2)
-    followers_following_columns[0].metric("Followers", data.followers_count())
-    followers_following_columns[1].metric("Following", data.following_count())
-
-    """
-    Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
-    low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
-    in an attempt to get as much attention as possible.
-    """
-
-    updates_column, age_column = st.columns(2)
-
-    with updates_column:
-        """
-        ## Number of updates
-        """
-
-        st.metric("Tweet Count", data.tweet_count())
+        followers_following_columns = st.columns(2)
+        followers_following_columns[0].metric("Followers", data.followers_count())
+        followers_following_columns[1].metric("Following", data.following_count())
 
         """
-        If an account with large followers and following has very less tweets and the account is not that recognizable,
-        then the account is probably a spam account.
+        Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
+        low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
+        in an attempt to get as much attention as possible.
         """
 
-    with age_column:
-        """
-        ## Age of account
-        """
+        updates_column, age_column = st.columns(2)
 
-        st.metric("Account age in days", data.account_age())
+        with updates_column:
+            """
+            ## Number of updates
+            """
 
-        """
-        An account that is not so recognizable but has large number of followers and following in a short period of time
-        is another indicator for a spam account.
-        """
+            st.metric("Tweet Count", data.tweet_count())
+
+            """
+            If an account with large followers and following has very less tweets and the account is not that recognizable,
+            then the account is probably a spam account.
+            """
+
+        with age_column:
+            """
+            ## Age of account
+            """
+
+            st.metric("Account age in days", data.account_age())
+
+            """
+            An account that is not so recognizable but has large number of followers and following in a short period of time
+            is another indicator for a spam account.
+            """
