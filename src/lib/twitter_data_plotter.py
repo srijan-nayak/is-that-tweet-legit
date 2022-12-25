@@ -21,6 +21,6 @@ class TwitterDataPlotter:
             .mark_bar()
             .encode(
                 alt.Y("Type", type="nominal", title=None),
-                alt.X("Count", type="quantitative"),
+                alt.X("Count", type="quantitative", title=None),
             )
         )
