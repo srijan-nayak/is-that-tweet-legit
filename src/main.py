@@ -23,17 +23,17 @@ def get_all_details(tweet_url_or_id: str, twitter_client: TwitterClient) -> dict
     tweet_details_response = twitter_client.fetch_tweet_details(
         tweet_id, ["public_metrics", "author_id"]
     )
-    all_details["tweet"] = tweet_details_response["data"]
+    all_details["tweet"] = tweet_details_response.get("data", {})
 
-    user_id = all_details["tweet"]["author_id"]
+    user_id = all_details["tweet"].get("author_id", "invalid")
     user_details_response = twitter_client.fetch_user_details(
         user_id, ["public_metrics", "created_at"]
     )
-    all_details["user"] = user_details_response["data"]
+    all_details["user"] = user_details_response.get("data", {})
 
-    user_name = all_details["user"]["username"]
+    user_name = all_details["user"].get("username", "")
     reply_tweets_response = twitter_client.fetch_reply_tweets(user_name)
-    all_details["reply_tweets"] = reply_tweets_response["data"]
+    all_details["reply_tweets"] = reply_tweets_response.get("data", {})
 
     return all_details
 
@@ -59,9 +59,11 @@ if __name__ == "__main__":
                 data_plotter = TwitterDataPlotter(data)
                 can_show_details = True
             except KeyError:
-                st.error("Failed to fetch data with the given Tweet link or URL!")
+                st.error("Failed to fetch data!")
 
     if can_show_details:
+        st.json(data.all())
+
         """
         ## Followers vs Following Count
         """
