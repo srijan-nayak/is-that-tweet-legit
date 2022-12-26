@@ -121,27 +121,31 @@ if __name__ == "__main__":
         ## Recent tweets and replies
         """
 
-        try:
-            st.altair_chart(
-                data_plotter.recent_tweets_metrics_plot(), use_container_width=True
-            )
+        tweets_tab, replies_tab = st.tabs(["Recent tweets", "Recent replies"])
 
-            with st.expander("Expand to see recent tweets from the user"):
-                for tweet in data.recent_tweets():
-                    st.text(tweet["text"])
-        except KeyError:
-            st.error("Failed to fetch recent tweets!")
+        with tweets_tab:
+            try:
+                st.altair_chart(
+                    data_plotter.recent_tweets_metrics_plot(), use_container_width=True
+                )
 
-        try:
-            st.altair_chart(
-                data_plotter.recent_replies_metrics_plot(), use_container_width=True
-            )
+                with st.expander("Expand to see recent tweets from the user"):
+                    for tweet in data.recent_tweets():
+                        st.text(tweet["text"])
+            except KeyError:
+                st.error("Failed to fetch recent tweets!")
 
-            with st.expander("Expand to see recent replies from the user"):
-                for tweet in data.recent_replies():
-                    st.text(tweet["text"])
-        except KeyError:
-            st.error("Failed to fetch recent replies!")
+        with replies_tab:
+            try:
+                st.altair_chart(
+                    data_plotter.recent_replies_metrics_plot(), use_container_width=True
+                )
+
+                with st.expander("Expand to see recent replies from the user"):
+                    for tweet in data.recent_replies():
+                        st.text(tweet["text"])
+            except KeyError:
+                st.error("Failed to fetch recent replies!")
 
         """
         If an account is just broadcasting links or just offering simple replies without much context, then it is highly
