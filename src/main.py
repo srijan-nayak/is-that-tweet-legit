@@ -82,7 +82,9 @@ if __name__ == "__main__":
         """
         Accounts that follow a lot (over thousands) of people but have few followers are generally considered to be
         low-quality accounts. These type of accounts are highly likely to be spam accounts that follow a lot of people
-        in an attempt to get as much attention as possible.
+        in an attempt to get as much attention as possible. But that does not mean that an account is not a spam account
+        if it has a lot of followers without following a lot of people, as the followers themselves might be bot
+        accounts.
         """
 
         updates_column, age_column = st.columns(2)
@@ -149,5 +151,6 @@ if __name__ == "__main__":
 
         """
         If an account is just broadcasting links or just offering simple replies without much context, then it is highly
-        likely that the account is a spam account.
+        likely that the account is a spam account. Also, if the interactions (likes, replies, retweets) follow a
+        regular pattern, then the interactions were most probably from bot accounts to help boost the tweet.
         """
