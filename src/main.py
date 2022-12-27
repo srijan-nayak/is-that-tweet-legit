@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     can_show_details = False
     with st.form("twitter_link_form"):
-        tweet_url_or_id = st.text_input("Tweet link or URL")
+        tweet_url_or_id = st.text_input("Tweet ID or URL")
         submitted = st.form_submit_button("Fetch data")
 
         if submitted:
