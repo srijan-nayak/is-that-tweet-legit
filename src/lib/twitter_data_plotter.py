@@ -1,6 +1,7 @@
+import altair
 import altair as alt
+import pandas
 import pandas as pd
-from altair.vegalite.v4.api import Chart
 
 from src.lib.twitter_data import TwitterData
 
@@ -9,7 +10,7 @@ class TwitterDataPlotter:
     def __init__(self, twitter_data: TwitterData):
         self.__twitter_data = twitter_data
 
-    def followers_following_bar_plot(self) -> Chart:
+    def followers_following_bar_plot(self) -> altair.vegalite.v4.api.Chart:
         followers = self.__twitter_data.followers_count()
         following = self.__twitter_data.following_count()
 
@@ -26,20 +27,20 @@ class TwitterDataPlotter:
             )
         )
 
-    def recent_tweets_metrics_plot(self) -> Chart:
+    def recent_tweets_metrics_plot(self) -> altair.vegalite.v4.api.Chart:
         recent_tweets = self.__twitter_data.recent_tweets()
         return TwitterDataPlotter.__tweets_metrics_plot(
             recent_tweets, "Recent tweets' metrics"
         )
 
-    def recent_replies_metrics_plot(self) -> Chart:
+    def recent_replies_metrics_plot(self) -> altair.vegalite.v4.api.Chart:
         recent_replies = self.__twitter_data.recent_replies()
         return TwitterDataPlotter.__tweets_metrics_plot(
             recent_replies, "Recent replies' metrics"
         )
 
     @staticmethod
-    def __tweets_metrics_plot(tweets: list[dict], title: str) -> Chart:
+    def __tweets_metrics_plot(tweets: list[dict], title: str) -> altair.vegalite.v4.api.Chart:
         chart_data = TwitterDataPlotter.__convert_tweets(tweets)
 
         return (
@@ -55,7 +56,7 @@ class TwitterDataPlotter:
         )
 
     @staticmethod
-    def __convert_tweets(tweets) -> pd.DataFrame:
+    def __convert_tweets(tweets) -> pandas.DataFrame:
         return pd.DataFrame(
             {
                 "Date": [tweet["created_at"] for tweet in tweets],
