@@ -3,7 +3,7 @@ import altair as alt
 import pandas
 import pandas as pd
 
-from src.lib.twitter_data import TwitterData
+from twitter_data import TwitterData
 
 
 class TwitterDataPlotter:
